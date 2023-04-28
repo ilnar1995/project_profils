@@ -28,20 +28,20 @@
 						<div class="fcols fx-row">
 							<div class="fleft fx-1 fx-row">
 								<div class="fleft-desc fx-1">
-									<h1> {{ account.full_name }} <small>смотреть онлайн</small></h1>
+									<h1> {{ account.full_name }} <small>Данные:</small></h1>
 									<div class="fdesc clearfix slice-this">
 										{{ account.description }}
 									</div>
 									<div class="fdesc clearfix slice-this">
 										<h2 style="text-align: left;" class="fsubtitle">{{ account.full_name }}
-											смотреть онлайн бесплатно</h2>
+											********************************************************</h2>
 									</div>
 									<div class="flists fx-row">
 										<ul class="flist">
 											<li><span>Имя:</span> <span>{{ account.first_name }}</span></li>
 											<li><span>Фамилия:</span> <span>{{ account.last_name }}</span></li>
 											<li><span>Телефон:</span> <span>{{ account.phone }}</span></li>
-											<li><span>День рождения: </span>{{ account.birthdey }}</li>
+											<li><span>День рождения: </span>{{ account.birthday }}</li>
 										</ul>
 										<ul class="flist">
 											<li><span>Почта: </span>{{ account.email }}</li>
@@ -90,6 +90,16 @@
                                             <a href="{% url 'edit' account.id%}" >
                                             <span itemprop="name">Редактировать профиль</span>
                                             </a>
+                                              <h1> *****************</h1>
+                                            <a href="{% url 'reset_email' account.id%}" >
+                                            <span itemprop="name">Изменить почту</span>
+                                            </a>
+                                              <h1> *****************</h1>
+                                                <form action="{% url 'password_reset' %}" method="post">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="email" placeholder="Ваш E-Mail на сайте" required id="id_email" value="{{ account.email }}">
+                                                <button name="submit" type="submit">сбросить пароль</button>
+                                                </form>
                                           {% endif %}
                                       {% endif %}
                                 </div>

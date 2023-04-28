@@ -8,20 +8,20 @@
 <span id="dle-speedbar"><span itemscope="" itemtype="https://schema.org/BreadcrumbList"><span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><meta itemprop="position" content="1"><a href="https://lord2.lordfilm.lu/" itemprop="item"><span itemprop="name">LORDFILM</span></a></span> » Регистрация посетителя</span></span>
 </div>
 <div class="clearfix" id="in-full"><div id="dle-content">
-	<form method="post" action="{% url 'registration_code' pk %}">
+	<form method="post" action="{% url 'reset_email' id %}">
 		{% csrf_token %}
     	<div class="form-error">{{ form.non_field_errors }}</div>
 		<div class="form-wrap">
-		<h1>Ввод кода для подтверждения почты</h1>
+		<h1>Смена електронной почты</h1>
 		<div class="full-text">
 		<b>Здравствуйте, уважаемый посетитель нашего сайта!</b><br>
-		Введите электронную почту для ее подтверждения.
-		<br>В случае возникновения проблем с регистрацией, обратитесь к администратору сайта.
+		Для смены почты введите адрес новой электронной почты в поле.
+		<br>В случае возникновения проблем с регистрацией, обратитесь к <a href="{% url 'home' %}">администратору</a> сайта.
 		</div>
 		<div class="form-item clearfix imp">
-		<label for="name">Код с электронной почты:</label>
-		<input type="text" name="code" id="code" required="">
-			<div class="form-error">{{ form.code.errors }}</div>
+		<label for="name">Ардес электронной почты:</label>
+		<input type="text" name="email" id="email" required="">
+			<div class="form-error">{{ form.email.errors }}</div>
 		</div>
 		<div id="result-registration"></div>
 		<div class="form-submit">

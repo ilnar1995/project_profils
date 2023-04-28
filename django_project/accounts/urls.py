@@ -3,7 +3,7 @@ from django.urls import path, include
 from django.contrib.auth import views
 
 from .views import RegisterUser, LoginUser, logout_user, \
-    UserPasswordResetView, tessst, EditUserProfile
+    UserPasswordResetView, tessst, EditUserProfile, reset_email_views
 
 from .views import verivicate_code, AccountDetailView, \
     UsersListView
@@ -11,6 +11,7 @@ from .views import verivicate_code, AccountDetailView, \
 urlpatterns = [
     path('', UsersListView.as_view(), name='home'),
     path('registrationcode/<int:pk>/', verivicate_code, name='registration_code'),
+    path('reset_email/<slug:id>/', reset_email_views, name='reset_email'),
     path('registration/', RegisterUser.as_view(), name='registration'),
     path('accounts/login/', LoginUser.as_view(), name='login'),
     path('accounts/logout/', logout_user, name='logout'),

@@ -23,6 +23,10 @@ class RegisterUserCodeForm(forms.Form):
     # vote = forms.IntegerField(widget=forms.RadioSelect())
     code = forms.CharField(max_length=6, min_length=6)
 
+class ResetEmailForm(forms.Form):
+    # vote = forms.IntegerField(widget=forms.RadioSelect())
+    email = forms.EmailField(label='Почта')
+
 class RegisterUserForm(UserCreationForm):
     first_name = forms.CharField(label='Имя', widget=forms.TextInput(
         attrs={'class': 'form-input'}))  # переопределили стандартные атрибуты базового класса для изменения свойтва
@@ -39,7 +43,7 @@ class RegisterUserForm(UserCreationForm):
                   'email')  # список полей котор надо отобразить в форме(если не вносить какой либо атрибут, данные не вносились в БД)
 
 class LoginUserForm(AuthenticationForm):
-    email = forms.CharField(label='Email', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    username = forms.CharField(label='Email', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
 class UserPasswordResetForm(PasswordResetForm):
