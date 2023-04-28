@@ -5,12 +5,12 @@ ENV PYTHONUNBUFFERED 1
 
 # install psycopg2 dependencies
 
-WORKDIR /usr/src/django_movie
+WORKDIR /usr/src/django_project
 
 COPY ./req.txt /usr/src/req.txt
 RUN pip install -r /usr/src/req.txt
 
-COPY . /usr/src/django_movie
+COPY . /usr/src/django_project
 
 #CMD ["python", "base.py"]
 
