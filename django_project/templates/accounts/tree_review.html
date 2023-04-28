@@ -1,0 +1,61 @@
+{% load static %}
+
+
+<div id="comment-id-89686">
+                    <div class="comm-item">
+                        <div class="comm-letter" style="background-color:#79c53b">B
+                        </div>
+                        <div class="comm-right fx-1">
+                            <div class="comm-one nowrap">
+                                <span class="comm-author"><a
+                                        href="https://lf7.lordfilm.lu/user/Belykonj/">{{ review.name }}</a></span>
+                                <span>{{ review.time_create}}</span>
+                            </div>
+                            <div class="comm-two clearfix full-text">
+                                <div class="comment__text" id="{{ review.id }}">{{ review.text }}</div>
+                                <!-- class="comment__text" -->
+                            </div>
+                            <div class="comm-three fx-row fx-middle">
+                                <div class="comm-three-left">
+                                    <div class="comm-rate3 clearfix">
+                                        <a href="#"
+                                            onclick="doCommentsRate('plus', '89686'); return false;"><span
+                                                class="fa fa-thumbs-up comment__like"><img src="{% static 'images/thumbs-up-svgrepo-com.svg' %}" alt="" width="15" height="15" style="vertical-align: middle;"></span>
+                                                <!-- class="comment__like" -->
+                                        </a>
+                                        <span id="comments-ratig-layer-89686"
+                                            class="ignore-select"><span
+                                                class="ratingtypeplusminus ignore-select ratingminus">
+                                            {% with a=review.rating_review %}
+                                            {% if a > 0 %}
+                                            +{{ a }}
+                                            {% elif a < 0 %}
+                                            {{ a }}
+                                            {% else %}
+                                            {{ 0 }}
+                                            {% endif %}
+                                            {% endwith %}
+                                        </span></span>
+                                        <a href="#"
+                                            onclick="doCommentsRate('minus', '89686'); return false;"><span
+                                                class="fa fa-thumbs-down comment__dislike"><img src="{% static 'images/thumbs-down-svgrepo-com.svg' %}" alt="" width="15" height="15" style="vertical-align: middle;"></span>
+                                                <!-- class="comment__dislike" -->
+                                        </a>
+                                    </div>
+                                    <a onclick="addReview('{{ review.name }}', '{{ review.id }}', event)"
+                                        href="#">Ответить</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{% if review.children %}
+<ol class="comments-tree-list">
+    {% for ch in review.children %}
+    <li id="comments-tree-item-93137" class="comments-tree-item">
+            {% include 'accounts/tree_review.html' with review=ch %}
+    </li>
+    {% endfor %}
+</ol>
+{% endif %}
+

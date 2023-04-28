@@ -1,0 +1,31 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+	<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+	<main class="main">
+<div class="login-box not-logged" style="display: block;">
+<form method="post" action="{% url 'login' %}">
+	{% csrf_token %}
+<div class="login-title">Авторизация</div>
+	<div class="form-error" style="color:#ff0000">{{ form.non_field_errors }}</div>
+<div class="login-avatar"><img src="{% static 'images/person.svg' %}" alt="" width="40" height="40" style="vertical-align: middle; z-index: 99; fill: red;"></div>
+<div class="login-input"><input type="text" name="username" id="login_name" placeholder="Ваш логин"></div>
+	<div class="form-error" style="color:#ff0000">{{ form.username.errors }}</div>
+<div class="login-input"><input type="password" name="password" id="login_password" placeholder="Ваш пароль"></div>
+	<div class="form-error" style="color:#ff0000">{{ form.password.errors }}</div>
+<div class="login-btn"><button type="submit" title="Вход">Войти на сайт</button></div>
+<div class="login-btm fx-row">
+<a href="{% url 'registration' %}" class="log-register">Регистрация</a>
+<a href="{% url 'password_reset' %}">Восстановить пароль</a>
+</div>
+<div class="login-soc-title">Или войти через</div>
+<div class="login-soc-btns">
+</div>
+</form>
+</div>
+</main>
+</div>
+
+{% endblock content %}

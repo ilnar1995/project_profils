@@ -1,0 +1,111 @@
+<!doctype html>
+{% load static %}
+<html lang="ru">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    {% block head %}
+    <title>Фильмы смотреть онлайн, которые уже вышли в HD 720 - 1080 хорошем качестве бесплатно</title>
+    {% endblock head %}
+  <link href={% static 'css.css' %} rel="stylesheet">
+  <link href={% static 'detail/engine.css' %} rel="stylesheet">
+  <link href={% static 'detail/styles.css' %} rel="stylesheet">
+  <link href={% static 'detail/filter-xf.css' %} rel="stylesheet">
+  <link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png">
+  <meta name="apple-mobile-web-app-title" content="CodePen">
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'favicon.ico'%}">
+  <link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111">
+  <link rel="stylesheet" href="{% static 'detail/ion.rangeSlider.min.css'%}" rel="stylesheet">
+  <style>
+.irs--round .irs-bar {
+  background-color: #00c2c0;
+}
+.irs--round .irs-handle {
+  background-color: #00c2c0;
+  border-color: #00c2c0;
+  box-shadow: 0px 0px 0px 5px rgba(0,194,192,0.2);
+}
+.irs--round .irs-handle.state_hover,
+.irs--round .irs-handle:hover {
+  background-color: #00c2c0;
+}
+.irs--round .irs-handle {
+  width: 16px;
+  height: 16px;
+  top: 29px;
+}
+.irs--round .irs-from,
+.irs--round .irs-to,
+.irs--round .irs-single {
+  background-color: transparent;
+  color: #666;
+}
+.irs--round .irs-from:before,
+.irs--round .irs-to:before,
+.irs--round .irs-single:before,
+.irs--round .irs-min,
+.irs--round .irs-max {
+  display: none;
+}
+</style>
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+</head>
+
+
+
+<body class="js">
+    {% include 'accounts/header.html' %}
+    <div class="wrap">
+    <div class="wrap-center wrap-main">
+      {% block content %} {% endblock content %}
+
+      {% block footer %}
+      <footer class="footer fx-row">
+        <div class="ft-col ft-desc">
+          <p>Все видео взяты из открытых источников. Если обнаружите материал, который нарушает авторское право - пишите
+            на почту, сразу удалим!<br>
+            Контакты для жалоб: <span style="color:#fff;">iii95@yandex.ru</span></p>
+
+        </div>
+      </footer>
+      {% endblock footer %}
+
+    </div>
+   <div class="login-box not-logged">
+    <form method="post">
+      <div class="login-title">Авторизация</div>
+      <div class="login-avatar"><span class="fa fa-user"></span></div>
+      <div class="login-input"><input type="text" name="login_name" id="login_name" placeholder="Ваш логин"></div>
+      <div class="login-input"><input type="password" name="login_password" id="login_password"
+          placeholder="Ваш пароль"></div>
+      <div class="login-check">
+        <label for="login_not_save">
+          <input type="checkbox" name="login_not_save" id="login_not_save" value="1">
+          <span>Запомнить</span>
+        </label>
+      </div>
+      <div class="login-btn"><button onclick="submit();" type="submit" title="Вход">Войти на сайт</button></div>
+      <input name="login" type="hidden" id="login" value="submit">
+      <div class="login-btm fx-row">
+        <a href="https://lf7.lordfilm.lu/?do=register" class="log-register">Регистрация</a>
+        <a href="https://lf7.lordfilm.lu/index.php?do=lostpassword">Восстановить пароль</a>
+      </div>
+      <div class="login-soc-title">Или войти через</div>
+      <div class="login-soc-btns">
+      </div>
+    </form>
+  </div>
+
+  <app-content ng-version="13.3.5"></app-content>
+  <script src="{% static 'js/scripts.js' %}"></script>
+  <script src="{% static 'js/scripts1.js' %}"></script>
+</body>
+</html>

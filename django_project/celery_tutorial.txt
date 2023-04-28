@@ -1,0 +1,30 @@
+https://docs.celeryq.dev/en/stable/getting-started/first-steps-with-celery.html#installing-celery
+
+docker run -d -p 6379:6379 redis
+
+celery -A django_movie worker --loglevel=INFO   #где django_movie название проекта. Эту команду надо выполнить в папке с manage.py 
+
+d:
+cd D:\iii\django_projects
+venv\Scripts\activate
+cd django_movie
+celery -A django_movie worker -l info
+
+
+
+В винде не таски ставятся в очеред но не выполняются. Решение:
+pip install gevent
+celery -A django_movie worker -l info -P gevent
+
+docker просмотр переменных виртуального окружения контейнера "mycontainer": 
+docker exec mycontainer /usr/bin/env
+
+os.environ.get('SECRET_KEY') не работал пришлось через: 
+pip install environ
+
+
+Удаление всех образов:
+docker rmi $(docker images -a -q)
+Удаление всех остановленных контейнеров:
+docker stop $(docker ps -a -q)
+docker ps -a -f status=exited

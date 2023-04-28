@@ -1,0 +1,55 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+	<main class="main">
+<div class="speedbar nowrap">
+<span id="dle-speedbar"><span itemscope="" itemtype="https://schema.org/BreadcrumbList"><span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><meta itemprop="position" content="1"><a href="https://lord2.lordfilm.lu/" itemprop="item"><span itemprop="name">LORDFILM</span></a></span> » Регистрация посетителя</span></span>
+</div>
+<div class="clearfix" id="in-full"><div id="dle-content">
+	<form method="post" action="{% url 'registration' %}">
+		{% csrf_token %}
+    	<div class="form-error">{{ form.non_field_errors }}</div>
+		<div class="form-wrap">
+		<h1>Регистрация</h1>
+		<div class="full-text">
+		<b>Здравствуйте, уважаемый посетитель нашего сайта!</b><br>
+		Регистрация на нашем сайте позволит Вам быть его полноценным участником.
+		Вы сможете добавлять новости на сайт, оставлять свои комментарии, просматривать скрытый текст и многое другое.
+		<br>В случае возникновения проблем с регистрацией, обратитесь к <a href="{% url 'home' %}">администратору</a> сайта.
+		</div>
+		<div class="form-item clearfix imp">
+		<label for="name">Логин:</label>
+		<input type="text" name="username" id="name" required="">
+			<div class="form-error">{{ form.username.errors }}</div>
+		</div>
+		<div id="result-registration"></div>
+		<div class="form-item clearfix imp">
+		<label for="password1">Пароль:</label>
+		<input type="password" name="password1" id="password1" required="">
+			<div class="form-error">{{ form.password1.errors }}</div>
+		</div>
+		<div class="form-item clearfix imp">
+		<label for="password2">Повторите пароль:</label>
+		<input type="password" name="password2" id="password2" required="">
+			<div class="form-error">{{ form.password2.errors }}</div>
+		</div>
+		<div class="form-item clearfix imp">
+		<label for="email">Ваш E-Mail:</label>
+		<input type="text" name="email" id="email" required="">
+			<div class="form-error">{{ form.email.errors }}</div>
+		</div>
+		<div class="form-submit">
+		<button name="submit" type="submit">Отправить</button>
+		</div>
+		</div>
+		<input name="submit_reg" type="hidden" id="submit_reg" value="submit_reg">
+		<input name="do" type="hidden" id="do" value="register">
+	</form>
+
+</div></div>
+</main>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,94 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+  {% block content %}
+      <div class="content">
+        <main class="main">
+          <div class="speedbar nowrap">
+            <span id="dle-speedbar"><span itemscope="" itemtype="https://schema.org/BreadcrumbList"><span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><meta itemprop="position" content="1"><a href="{% url 'home'%}" itemprop="item"><span itemprop="name">NORDFILM</span></a></span> » Поиск по сайту</span></span>
+          </div>
+          <div class="sect">
+
+<!--            Див для фильтра-->
+
+
+            <div class="sect-cont sect-items clearfix">
+              <div id="dle-content">
+
+                <div class="search-page">
+                  <header class="sub-title"><h1>Поиск по сайту</h1></header>
+                  <div class="searchtable" id="searchtable" name="searchtable">
+                    <form action="{% url 'quicksearch' %}" id="quicksearch" method="get">
+                      <table>
+                        <tbody>
+                        <tr>
+                          <td class="search">
+                            <div style="margin:10px;">
+                              <input type="text" name="q" id="searchinput" value="{{ q }}" class="textin" style="width:250px">
+                              <br><br>
+                              <button type="submit" class="bbcodes" name="dosearch" id="dosearch" >Начать поиск</button>
+                            </div>
+                          </td>
+                        </tr>
+                        </tbody>
+                      </table>
+                    </form>
+                  </div>
+                  {% if quantity != 0 %}
+                    <div class="berrors"><b>Информация</b><br>По Вашему запросу найдено {{ page_obj.paginator.count }} ответов</div>
+                  {% else %}
+                    <div class="berrors">
+                    <b>Внимание! Обнаружена ошибка</b><br>
+                    Объектов по данному запросу не найдено.
+                    </div>
+                  {% endif %}
+                </div>
+                {% for movie in movies %}
+                <div class="th-item">
+                  <a class="th-in with-mask" href="{{ movie.get_absolute_url }}">
+                    <div class="th-img img-resp-vert">
+                      <img alt="{{ movie.title }}" src="{{ movie.poster.url }}">
+                    </div>
+                    <div class="th-desc">
+                      <div class="th-title"> {{ movie.full_name }} ({{ movie.year }})</div>
+                      <div class="th-rates fx-row">
+                        {% if movie.kr %}
+                        <div class="th-rate th-rate-kp" data-text="kp"><span>{{ movie.kr }}</span></div>
+                        {% endif %}
+                        {% if movie.imdb %}
+                        <div class="th-rate th-rate-imdb" data-text="imdb"><span>{{ movie.imdb }}</span></div>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="th-mask fx-col fx-center fx-middle anim">
+                      <span class="fa fa-play"></span>
+                    </div>
+                  </a>
+                </div>
+                {% endfor %}
+
+                <div class="bottom-nav clr ignore-select" id="bottom-nav">
+
+                    <div class="navigation">
+                      {% if page_obj.has_other_pages %}
+
+                          {% for p in qqq %}
+                            {% if page_obj.number == p %}
+                              <span>{{ p }}</span>
+                            {% elif 0 == p %}
+                              <span class="nav_ext">...</span>
+                            {% else %}
+                              <a href="?page={{ p }}&q={{ q }}">{{ p }}</a>
+                            {% endif %}
+                          {% endfor %}
+
+                      {% endif %}
+                    </div>
+
+                  </div>
+                </div>
+              </div>
+            </div>
+        </main>
+      </div>
+  {% endblock content %}

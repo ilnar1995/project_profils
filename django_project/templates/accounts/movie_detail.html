@@ -1,0 +1,433 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+	<main class="main">
+		<div class="speedbar nowrap">
+			<span id="dle-speedbar">
+				<span itemscope="" itemtype="https://schema.org/BreadcrumbList">
+					<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+							<meta itemprop="position" content="1">
+						<a href="{% url 'home'%}" itemprop="item"><span itemprop="name">NORDFILM</span></a>
+					</span> »
+					<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+						<a href="{% url 'home'%}" itemprop="item"><span itemprop="name">{{ movie.category }}</span></a>
+					</span> » {{ movie.full_name }}
+				</span>
+			</span>
+		</div>
+		<div class="clearfix" id="in-full">
+			<div id="dle-content">
+				<article class="full ignore-select">
+					<div class="fmain">
+
+							<script type="text/javascript"
+								src="https://vak345.com/s.js?v=8b77c3569d11e547b78dd15ff18097db" async=""></script>
+						</center>
+						<div class="fcols fx-row">
+							<div class="fleft fx-1 fx-row">
+								<div class="fleft-desc fx-1">
+									<h1> {{ movie.full_name }} <small>смотреть онлайн</small></h1>
+									<div class="fdesc clearfix slice-this">
+										{{ movie.description }}
+									</div>
+									<div class="fdesc clearfix slice-this">
+										<h2 style="text-align: left;" class="fsubtitle">{{ movie.full_name }}
+											смотреть онлайн бесплатно</h2>
+									</div>
+									<div class="flists fx-row">
+										<ul class="flist">
+											<li><span>Название:</span> <span>{{ movie.title }}</span></li>
+											<li><span>Год выхода:</span> <span>{{ movie.year }}</span></li>
+											<li><span>Режиссер:</span> <span>
+												{% for director in movie.directors.all %}
+													{{ director }},
+												{% endfor %}
+											</span></li>
+											<li><span>Страна: </span>{{ movie.country }}</li>
+										</ul>
+										<ul class="flist">
+											<li><span>Перевод: </span>{{ movie.translation }}</li>
+											<li><span>Качество:</span> <strong>{{ movie.quality }}</strong></li>
+										</ul>
+										<ul class="flist flist-wide">
+											<li><span>Актеры:</span> <span>
+												{% for actor in movie.actors.all %}
+													{{ actor }},
+												{% endfor %} и другие
+												</span></li>
+											<li><span>Жанр:</span> <span>
+												{% for genre in movie.genre.all %}
+													{{ genre }},
+												{% endfor %}
+											</span></li>
+										</ul>
+										<ul class="flist">
+											<li class="frates fx-row">
+												{% if movie.kr %}
+												<div class="frate frate-kp" data-text="kp"><span>{{ movie.kr }}</span></div>
+												{% endif %}
+												{% if movie.imdb %}
+												<div class="frate frate-imdb" data-text="imdb"><span>{{ movie.imdb }}</span></div>
+												{% endif %}
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="fleft-img fx-first">
+									<div class="fleft-img-in">
+										<div class="fposter img-wide">
+											<img alt="{{ movie.title }}" src="{{ movie.poster.url }}"
+												class="lazy-loaded">
+										</div>
+<!--форма рейтинга фильма-->
+										<form action="{% url 'add_rating_movie' %}" method="post" name="rating">
+											{% csrf_token %}
+										<div class="flikes fx-row">
+											<input type="hidden" name="movie" value="{{ movie.pk }}" id="id_movie">
+											<div class="rate-plus ps" id="ps-47515">
+												<input type="radio" name="vote" value="1" required="" id="id_vote_1" style="display: none;">
+												<span class="fa fa-thumbs-up rating_modiff" id="movie_like_btn"><img class="rating_modiff" src="{% static 'images/thumbs-up-svgrepo-com.svg' %}" alt="" width="13" height="13" style="vertical-align: middle; "></span><span class="psc">{{ movie.like }}</span></div>
+											<div class="slide-circle"><canvas width="50" height="50"></canvas>
+
+												</a>
+												<div>
+													{% if movie.rat != None %}
+													{{ movie.rat }}
+													{% else %}
+													{{ 0 }}
+													{% endif %}
+													<div>рейтинг</div>
+												</div>
+											</div>
+											<div class="rate-minus ms" id="ms-47515" onclick="doRateLD('minus', '47515');">
+
+												<span class="msc">{{ movie.dislike }}</span><span
+													class="fa fa-thumbs-down rating_modiff"  id="movie_dislike_btn"><img class="rating_modiff" src="{% static 'images/thumbs-down-svgrepo-com.svg' %}" alt="" width="13" height="13" style="vertical-align: middle; "></span>
+												<input type="radio" name="vote" value="-1" required="" id="id_vote_2" style="display: none;">
+											</div>
+										</div>
+										</form>
+
+										<div class="fvotes hidden">
+											<div class="hidden"><span id="ratig-layer-47515" class="ignore-select"><span
+														class="ratingtypeplusminus ignore-select ratingplus">+167</span></span>
+											</div> <span id="vote-num-id-47515">1035</span> голосов
+										</div>
+									</div>
+								</div>
+								<div style="position: relative;top:10px;margin:auto;width:100%;text-align:center;">
+									<script async="" src="https://aj1907.online/63c0d7d8.js"></script>
+								</div>
+								<strong class="fsubtitle">{{ movie.full_name }} в HD 720-1080 хорошем
+									качестве</strong>
+							</div>
+
+							<div class="fright">
+								<div class="filter-btn icon-left btn"><span class="fa fa-sliders"></span>Поиск по
+									параметрам</div>
+								<div class="frels-title">Поиск по параметрам</div>
+								<div class="filter-wrap">
+<!--форма для фильтра фильмов-->
+									<form action="{% url 'search' %}" id="search" method="get">
+										<div class="fb-col fb-multi">
+											<div class="fb-sect fb-sel">
+
+                      <div class="chosen-container chosen-container-multi" title="" style="width: 204px;">
+                        <ul class="chosen-choices">
+                          <li class="search-field">
+                            <select name="genre" style="width: 200px;">
+                              <option selected disabled hidden>Выберите жанр</option>
+                              {% for genree in genres %}
+                              <option>{{ genree.name }}</option>
+                              {% endfor %}
+                            </select>
+                          </li>
+                        </ul>
+                        <div class="chosen-drop">
+                          <ul class="chosen-results"></ul>
+                        </div>
+                      </div>
+                    </div>
+											<div class="fb-sect fb-sel">
+                      <div class="chosen-container chosen-container-multi" title="" style="width: 204px;">
+                        <ul class="chosen-choices">
+                          <li class="search-field">
+                            <select name="country" style="width: 200px;">
+                              <option selected disabled hidden>Выберите страну</option>
+                              {% for countryy in countrys %}
+                              <option value="{{ countryy.0 }}">{{ countryy.1 }}</option>
+                              {% endfor %}
+                            </select>
+                          </li>
+                        </ul>
+                        <div class="chosen-drop">
+                          <ul class="chosen-results"></ul>
+                        </div>
+                      </div>
+                    </div>
+										</div>
+										<div class="fb-col fb-range">
+<!--						                    <span class="irs irs&#45;&#45;round js-irs-0">-->
+<!--						                      <span class="irs">-->
+<!--						                        <span class="irs-line" tabindex="0"></span>-->
+<!--						                        <span class="irs-min" style="visibility: hidden;">1980</span>-->
+<!--						                        <span class="irs-max" style="visibility: hidden;">2 022</span>-->
+<!--						                        <span class="irs-from" style="visibility: visible; left: -0.0938809%;">1980</span>-->
+<!--						                        <span class="irs-to" style="visibility: visible; left: 96.8105%;">2 022</span>-->
+<!--						                        <span class="irs-single" style="visibility: hidden; left: 46.8138%;">1980 — 2 022</span>-->
+<!--						                      </span>-->
+<!--						                      <span class="irs-grid"></span>-->
+<!--						                      <span class="irs-bar" style="left: 0.835946%; width: 98.3281%;"></span>-->
+<!--						                      <span class="irs-shadow shadow-from" style="display: none;"></span>-->
+<!--						                      <span class="irs-shadow shadow-to" style="display: none;"></span>-->
+<!--						                      <span class="irs-handle from" style="left: 0%;"><i></i><i></i><i></i></span>-->
+<!--						                      <span class="irs-handle to type_last state_hover" style="left: 98.3281%;"><i></i><i></i><i></i></span>-->
+<!--						                    </span>-->
+<!--						                    <span class="irs irs&#45;&#45;round js-irs-0">-->
+<!--						                      <span class="irs">-->
+<!--						                        <span class="irs-line" tabindex="0"></span>-->
+<!--						                        <span class="irs-min" style="visibility: hidden;">1980</span>-->
+<!--						                        <span class="irs-max" style="visibility: hidden;">2 022</span>-->
+<!--						                        <span class="irs-from" style="visibility: visible; left: -0.047187%;">1980</span>-->
+<!--						                        <span class="irs-to" style="visibility: visible; left: 98.3969%;">2 022</span>-->
+<!--						                        <span class="irs-single" style="visibility: hidden; left: 48.3985%;">1980 — 2 022</span>-->
+<!--						                      </span>-->
+<!--						                        <span class="irs-grid"></span>-->
+<!--						                        <span class="irs-bar" style="left: 0.420168%; width: 99.1597%;"></span>-->
+<!--						                        <span class="irs-shadow shadow-from" style="display: none;"></span>-->
+<!--						                        <span class="irs-shadow shadow-to" style="display: none;"></span>-->
+<!--						                        <span class="irs-handle from" style="left: 0%;"><i></i><i></i><i></i></span>-->
+<!--						                        <span class="irs-handle to type_last" style="left: 99.1597%;"><i></i><i></i><i></i></span>-->
+<!--						                    </span>-->
+											<input type="text" class="js-range-slider" name="my_range" value="" data-skin="round" data-type="double" data-min="1980" data-max="2022" data-grid="false" tabindex="-1" readonly="">
+											<input type="hidden" maxlength="4" value="1980" class="from">
+											<input type="hidden" maxlength="4" value="2022" class="to">
+											<script src="{% static 'js/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js'%}"></script>
+											<script src="{% static 'js/jquery.min.js'%}"></script>
+											<script src="{% static 'js/ion.rangeSlider.min.js'%}"></script>
+											<script id="rendered-js">
+											var $range = $(".js-range-slider"),
+											$from = $(".from"),
+											$to = $(".to"),
+											range,
+											min = $range.data('min'),
+											max = $range.data('max'),
+											from,
+											to;
+
+											var updateValues = function () {
+											  $from.prop("value", from);
+											  $to.prop("value", to);
+											};
+
+											$range.ionRangeSlider({
+											  onChange: function (data) {
+												from = data.from;
+												to = data.to;
+												updateValues();
+											  } });
+
+
+											range = $range.data("ionRangeSlider");
+											var updateRange = function () {
+											  range.update({
+												from: from,
+												to: to });
+
+											};
+
+											$from.on("input", function () {
+											  from = +$(this).prop("value");
+											  if (from < min) {
+												from = min;
+											  }
+											  if (from > to) {
+												from = to;
+											  }
+											  updateValues();
+											  updateRange();
+											});
+
+											$to.on("input", function () {
+											  to = +$(this).prop("value");
+											  if (to > max) {
+												to = max;
+											  }
+											  if (to < from) {
+												to = from;
+											  }
+											  updateValues();
+											  updateRange();
+											});
+											//# sourceURL=pen.js
+												</script>
+										</div>
+										<div class="fb-col fb-checks">
+											<div class="fb-sect">
+												<label class="fb-check">
+													<input name="category" value="1" type="checkbox">
+													<span>Фильмы</span>
+												</label>
+												<label class="fb-check">
+													<input name="category" value="2" type="checkbox">
+													<span>Мультфильмы</span>
+												</label>
+											</div>
+											<div class="fb-sect">
+												<label class="fb-check">
+													<input name="category" value="3" type="checkbox">
+													<span>Аниме</span>
+												</label>
+											</div>
+										</div>
+										<div class="fb-col fb-submit">
+											<input type="submit" value="Поиск">
+											<input type="button" data-dlefilter="reset" value="Очистить">
+										</div>
+									</form>
+								</div>
+							</div>
+
+						</div>
+
+
+						<div class="fplayer tabs-box">
+							<div class="fctrl fx-row fx-middle">
+								<div class="tabs-sel fx-1">
+									<span class="current">Смотреть онлайн</span>
+								</div>
+							</div>
+							<div class="tabs-b video-box visible">
+								<iframe width="560" height="400" src="{{ movie.link }}" frameborder="0"
+									allowfullscreen=""></iframe>
+							</div>
+
+							<div class="fshare">
+								 <span onClick='window.open("https://www.facebook.com/sharer.php?u=http://1030197-cb51329.tmweb.ru{{ request.path }}","sharer","status=0,toolbar=0,width=650,height=500");' class="fa fa-facebook" data-id="fb"><img src="{% static '/images/FB.svg' %}" alt="" width="15" height="15" style="vertical-align: middle;"></span>
+                                 <span onClick='window.open("https://vk.com/share.php?url=http://1030197-cb51329.tmweb.ru{{ request.path }}","sharer","status=0,toolbar=0,width=650,height=500");' class="fa fa-vk" data-id="vk"><img src="{% static '/images/vk.svg' %}" alt="" width="15" height="15" style="vertical-align: middle;"></span>
+                                 <span onClick='window.open("https://www.odnoklassniki.ru/dk?st.cmd=addShare&st.s=1&st._surl=http://1030197-cb51329.tmweb.ru{{ request.path }}&st.comments=ОПИСАНИЕ","sharer","status=0,toolbar=0,width=650,height=500");' class="fa fa-odnoklassniki" data-id="ok"><img src="{% static '/images/odnoklassniki.svg' %}" alt="" width="15" height="15" style="vertical-align: middle;"></span>
+                                 <span onClick='window.open("https://twitter.com/intent/tweet?text=ТАЙТЛ_СТРАНИЦЫ. ОПИСАНИЕ. http://1030197-cb51329.tmweb.ru{{ request.path }}","sharer","status=0,toolbar=0,width=650,height=500");' class="fa fa-twitter" data-id="tw"><img src="{% static '/images/TWITTER.svg' %}" alt="" width="15" height="15" style="vertical-align: middle;"></span>
+                                 <span onClick='window.open("https://telegram.me/share/url?url=http://1030197-cb51329.tmweb.ru{{ request.path }}","sharer","status=0,toolbar=0,width=650,height=500");' class="fa fa-paper-plane" data-id="tlg"><img src="{% static '/images/telegram.svg' %}" alt="" width="15" height="15" style="vertical-align: middle;"></span>
+							</div>
+						</div>
+
+
+					</div>
+
+					<div class="sect fcomms">
+						<div class="sect-header fx-row fx-middle fx-start">
+							<div class="frels-title icon-right">Оставь свой отзыв <span><img src="{% static '/images/chat.svg' %}" alt="" width="15" height="15" style="vertical-align: middle;"></span>
+							</div>
+						</div>
+						<div class="sect-cont fx-row">
+							<div class="full-comms" id="full-comms">
+
+								<!-- Вывод отзывов -->
+								<form action="{% url 'add_review_like' %}" method="post" name="dlemasscomments" id="dlemasscomments">
+									{% csrf_token %}
+									<div id="dle-comments-list">
+										<div id="comment"></div>
+										<ol class="comments-tree-list">
+											{% for ch in reviews %}
+											<li id="comments-tree-item-89686" class="comments-tree-item">
+												{% if ch.parent_id == None %}
+												{% include 'accounts/tree_review.html' with review=ch %}
+												{% endif %}
+											</li>
+											{% endfor %}
+										</ol>
+
+									</div>
+								</form>
+
+								<!--{  {star_form}  } добавляет еще один запрос к БД к movie_movie -->
+<!--форма добавления коментов-->
+							</div>
+							<div class="add-comms">
+								<form action="{% url 'add_review' movie.pk %}" method="post" name="dle-comments-form" id="dle-comments-form">
+									{% csrf_token %}
+									<div class="add-comm-form" id="add-comms">
+										{% if request.user.is_authenticated %}
+										<div class="ac-inputs fx-row" style="display: none;">
+											<input type="hidden" name="parent" id="contactparent" value="">
+											<input type="text" maxlength="35" name="name" value="{{ request.user.username }}" id="name"
+												placeholder="Ваше имя">
+											<input type="text" maxlength="35" name="email" value="{{ request.user.email }}" id="email"
+												placeholder="Ваш e-mail (не обязательно)">
+										</div>
+										{% else %}
+										<div class="ac-inputs fx-row">
+											<input type="hidden" name="parent" id="contactparent" value="">
+											<input type="text" maxlength="35" name="name" id="name"
+												placeholder="Ваше имя">
+											<input type="text" maxlength="35" name="email" id="email"
+												placeholder="Ваш e-mail (не обязательно)">
+										</div>
+										{% endif %}
+										<div class="ac-textarea">
+											<div class="bb-editor">
+												<textarea name="text" id="contactcomment" cols="70" rows="10"></textarea>
+											</div>
+										</div>
+										<ul class="ac-emoji">
+											<li onclick="addSmiley('🙂')">🙂</li>
+											<li onclick="addSmiley('😁')">😁</li>
+											<li onclick="addSmiley('🤣')">🤣</li>
+											<li onclick="addSmiley('🙃')">🙃</li>
+											<li onclick="addSmiley('😊')">😊</li>
+											<li onclick="addSmiley('😍')">😍</li>
+											<li onclick="addSmiley('😐')">😐</li>
+											<li onclick="addSmiley('😡')">😡</li>
+											<li onclick="addSmiley('😎')">😎</li>
+											<li onclick="addSmiley('🙁')">🙁</li>
+											<li onclick="addSmiley('😩')">😩</li>
+											<li onclick="addSmiley('😱')">😱</li>
+											<li onclick="addSmiley('😢')">😢</li>
+											<li onclick="addSmiley('💩')">💩</li>
+											<li onclick="addSmiley('💣')">💣</li>
+											<li onclick="addSmiley('💯')">💯</li>
+											<li onclick="addSmiley('👍')">👍</li>
+											<li onclick="addSmiley('👎')">👎</li>
+										</ul>
+										<div class="ac-protect">
+										</div>
+										<div class="ac-submit">
+											<button type="submit">Добавить комментарий</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="sect frels">
+						<div class="sect-header fx-row fx-middle fx-start">
+							<div class="frels-title">Смотрите также</div>
+						</div>
+
+					</div>
+					<script type="application/ld+json">
+
+    </script>
+
+				</article>
+			</div>
+		</div>
+	</main>
+</div>
+	<script>
+		document.querySelector('#contactcomment').addEventListener('input', function (event) {
+    		document.querySelector('#contactcomment').textContent += event.target.value;
+  		});
+        function addReview(name, id, event) {
+        	event.preventDefault();
+            document.getElementById("contactparent").value = id;
+            document.querySelector('#contactcomment').value  = `${name}, `;
+<!--            document.getElementById("contactcomment").innerText = `${name}, `-->
+        }
+        function addSmiley(name) {
+            document.querySelector('#contactcomment').value  = document.querySelector('#contactcomment').value + `${name}`;
+        }
+    </script>
+{% endblock content %}

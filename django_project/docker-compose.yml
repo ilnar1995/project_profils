@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  db_project:
+    image: postgres:11-alpine
+    container_name: db_project
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    ports:
+      - '5432'
+    environment:
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_USER: postgres
+      POSTGRES_DB: postgres
+  web:
+    build: .
+    container_name: django
+    command:  bash -c "python /usr/src/django_project/manage.py makemigrations &&
+              python /usr/src/django_project/manage.py migrate --noinput &&
+              python /usr/src/django_project/manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - .:/usr/src/django_project
+    env_file:
+      - .env.dev
+    ports:
+      - 8000:8000
+    depends_on:
+      - db_project
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+  celery:
+    build: .
+    command: celery -A django_project worker -l info
+    volumes:
+      - .:/code
+    depends_on:
+      - db_project
+      - redis
+    env_file:
+      - .env.dev
+
+#  redis:
+#    image: redis:5-alpine
+#    restart: always
+#
+#
+volumes:
+  postgres_data:

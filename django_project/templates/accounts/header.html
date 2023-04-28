@@ -1,0 +1,54 @@
+{% load static %}
+<header class="header sticky sticky-hide sticky-vis" id="header">
+    <div class="header-in wrap-center fx-row fx-middle">
+      <a href={% url 'home'%} class="logo"><img src={% static "logo.png"%} alt="Nordfilm"></a>
+      <div class="btn-menu"><span class="fa fa-bars"></span></div>
+      <ul class="hmenu for_open fx-row to-mob">
+        {% for category in categorys %}
+        <li><a href="{{ category.get_absolute_url }}">{{ category.name }}</a>
+          <div class="hidden-menu clearfix">
+            <ul class="hm-col">
+              <li><a href="{{ category.get_absolute_url }}">Все</a></li>
+              <li>По году:</li>
+              <li><a href="{% url 'category_and_year' category.url 2022 %}">2022</a></li>
+              <li><a href="{% url 'category_and_year' category.url 2021 %}">2021</a></li>
+              <li><a href="{% url 'category_and_year' category.url 2020 %}">2020</a></li>
+              <li><a href="{% url 'category_and_year' category.url 2019 %}">2019</a></li>
+              <li><a href="{% url 'category_and_year' category.url 2018 %}">2018</a></li>
+              <li><a href="{% url 'category_and_year' category.url 2017 %}">2017</a></li>
+            </ul>
+            <ul class="hm-col">
+              <li>По жанрам:</li>
+              {% with i=1 %}
+              {% for genre in genres %}
+              <li><a href="{% url 'category_and_genre' category.url genre.url %}">{{ genre.name }}</a></li>
+              {% endfor %}
+              {% endwith %}
+            </ul>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="search-wrap fx-1 to-mob">
+
+        <form action="{% url 'quicksearch' %}" id="quicksearch" method="get">
+          <div class="search-box">
+            <input id="ajax_search" name="q" placeholder="Введите точное название (без ошибок!)" type="text"
+              autocomplete="off">
+            <button type="submit"><img src="{% static 'images/search_ico.svg' %}" alt="" width="25" height="25" style="vertical-align: middle;"></button>
+          </div>
+        </form>
+
+      </div>
+      {% if request.user.is_authenticated %}
+
+      <div class="btn-login btn1 js-login to-mob">
+        <a href="{% url 'logout'%}">{{user.username}} | ВЫЙТИ</a>
+      </div>
+      {% else %}
+      <div class="btn-login btn1 js-login to-mob">
+        <a href="{% url 'login'%}">ВОЙТИ</a>
+      </div>
+      {% endif %}
+    </div>
+  </header>
