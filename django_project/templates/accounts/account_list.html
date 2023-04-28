@@ -1,0 +1,61 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+  {% block content %}
+      <div class="content">
+        <main class="main">
+          <div class="sect">
+            <div class="sect-header fx-row fx-middle">
+              <h1>
+                Список пользователей
+              </h1>
+
+
+            </div>
+
+            <div class="sect-cont sect-items clearfix">
+              <div id="dle-content">
+
+                {% for user in users %}
+                <div class="th-item">
+                  <a class="th-in with-mask" href="{% url 'prifile' user.id %}" >
+                    <div class="th-img img-resp-vert">
+                      <img alt="{{ user.title }}" {% if user.avatar %} src="{{ user.avatar.url }}" {% else %} src="{% static "avatar.png"%}" {% endif %}>
+                    </div>
+                    <div class="th-desc">
+                      <div class="th-title"> {{ user.first_name }} {{ user.last_name }}</div>
+                      <div class="th-rates fx-row">
+                        {% if user.kr %}
+                        <div class="th-rate th-rate-kp" data-text="kp"><span>{{ user.kr }}</span></div>
+                        {% endif %}
+                        {% if user.email %}
+                        <div class="th-rate th-rate-imdb" data-text="Д.Р. "><span>{{ user.birthday }}</span></div>
+                        {% endif %}
+                      </div>
+                    </div>
+                    <div class="th-mask fx-col fx-center fx-middle anim">
+                      <span class="fa"><img src="{% static 'images/play_arrow.svg' %}" alt="" width="50" height="50" style="vertical-align: middle; z-index: 99; fill: red;"></span>
+                    </div>
+                  </a>
+                </div>
+                {% empty %}
+                      <div class="search-page">
+                        <div class="berrors">
+                        <b>Внимание!</b><br>
+                        Объектов по данному запросу не найдено.
+                        </div>
+                      </div>
+                {% endfor %}
+
+                <div class="bottom-nav clr ignore-select" id="bottom-nav">
+
+
+
+                  </div>
+                </div>
+              </div>
+            </div>
+        </main>
+      </div>
+
+  {% endblock content %}

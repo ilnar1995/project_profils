@@ -31,20 +31,19 @@
       </ul>
       <div class="search-wrap fx-1 to-mob">
 
-        <form action="{% url 'quicksearch' %}" id="quicksearch" method="get">
-          <div class="search-box">
-            <input id="ajax_search" name="q" placeholder="Введите точное название (без ошибок!)" type="text"
-              autocomplete="off">
-            <button type="submit"><img src="{% static 'images/search_ico.svg' %}" alt="" width="25" height="25" style="vertical-align: middle;"></button>
-          </div>
-        </form>
+
 
       </div>
       {% if request.user.is_authenticated %}
 
       <div class="btn-login btn1 js-login to-mob">
-        <a href="{% url 'logout'%}">{{user.username}} | ВЫЙТИ</a>
+        <a href="{% url 'logout'%}">ВЫЙТИ</a>
       </div>
+
+      <div class="btn-login btn1 js-login to-mob">
+        <a href="{% url 'prifile' request.user.id%}">МОЙ ПРОФИЛЬ</a>
+      </div>
+
       {% else %}
       <div class="btn-login btn1 js-login to-mob">
         <a href="{% url 'login'%}">ВОЙТИ</a>

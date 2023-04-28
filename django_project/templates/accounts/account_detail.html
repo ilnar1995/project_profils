@@ -1,0 +1,149 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+	<main class="main">
+		<div class="speedbar nowrap">
+			<span id="dle-speedbar">
+				<span itemscope="" itemtype="https://schema.org/BreadcrumbList">
+					<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+							<meta itemprop="position" content="1">
+						<a href="{% url 'home'%}" itemprop="item"><span itemprop="name">Главная</span></a>
+					</span> »
+					<span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem">
+						<a href="{% url 'home'%}" itemprop="item"><span itemprop="name">{{ account.category }}</span></a>
+					</span> » {{ account.email }}
+				</span>
+			</span>
+		</div>
+		<div class="clearfix" id="in-full">
+			<div id="dle-content">
+				<article class="full ignore-select">
+					<div class="fmain">
+
+							<script type="text/javascript"
+								src="https://vak345.com/s.js?v=8b77c3569d11e547b78dd15ff18097db" async=""></script>
+						</center>
+						<div class="fcols fx-row">
+							<div class="fleft fx-1 fx-row">
+								<div class="fleft-desc fx-1">
+									<h1> {{ account.full_name }} <small>смотреть онлайн</small></h1>
+									<div class="fdesc clearfix slice-this">
+										{{ account.description }}
+									</div>
+									<div class="fdesc clearfix slice-this">
+										<h2 style="text-align: left;" class="fsubtitle">{{ account.full_name }}
+											смотреть онлайн бесплатно</h2>
+									</div>
+									<div class="flists fx-row">
+										<ul class="flist">
+											<li><span>Имя:</span> <span>{{ account.first_name }}</span></li>
+											<li><span>Фамилия:</span> <span>{{ account.last_name }}</span></li>
+											<li><span>Телефон:</span> <span>{{ account.phone }}</span></li>
+											<li><span>День рождения: </span>{{ account.birthdey }}</li>
+										</ul>
+										<ul class="flist">
+											<li><span>Почта: </span>{{ account.email }}</li>
+											<li><span>id:</span> <strong>{{ account.id }}</strong></li>
+										</ul>
+										<ul class="flist">
+											<li class="frates fx-row">
+												{% if account.kr %}
+												<div class="frate frate-kp" data-text="kp"><span>{{ account.kr }}</span></div>
+												{% endif %}
+												{% if account.imdb %}
+												<div class="frate frate-imdb" data-text="imdb"><span>{{ account.imdb }}</span></div>
+												{% endif %}
+											</li>
+										</ul>
+									</div>
+								</div>
+								<div class="fleft-img fx-first">
+									<div class="fleft-img-in">
+										<div class="fposter img-wide">
+											<img alt="{{ account.email }}" {% if account.avatar %} src="{{ account.avatar.url }}" {% else %} src="{% static "avatar.png"%}" {% endif %}
+												class="lazy-loaded">
+										</div>
+<!--форма рейтинга фильма-->
+
+
+										<div class="fvotes hidden">
+											<div class="hidden"><span id="ratig-layer-47515" class="ignore-select"><span
+														class="ratingtypeplusminus ignore-select ratingplus">+167</span></span>
+											</div> <span id="vote-num-id-47515">1035</span> голосов
+										</div>
+									</div>
+								</div>
+								<div style="position: relative;top:10px;margin:auto;width:100%;text-align:center;">
+									<script async="" src="https://aj1907.online/63c0d7d8.js"></script>
+								</div>
+								<strong class="fsubtitle">Профиль пользователя {{ account.email }}</strong>
+							</div>
+
+							<div class="fright">
+								<div class="filter-btn icon-left btn"><span class="fa fa-sliders"></span>Поиск по
+									параметрам</div>
+								<div>
+                                      {% if request.user.is_authenticated %}
+                                          {% if request.user.id == account.id %}
+                                            <a href="{% url 'edit' account.id%}" >
+                                            <span itemprop="name">Редактировать профиль</span>
+                                            </a>
+                                          {% endif %}
+                                      {% endif %}
+                                </div>
+								<div class="filter-wrap">
+<!--форма для фильтра фильмов-->
+
+								</div>
+							</div>
+
+						</div>
+
+
+
+
+
+					</div>
+
+					<div class="sect fcomms">
+						<div class="sect-cont fx-row">
+							<div class="full-comms" id="full-comms">
+
+								<!-- Вывод отзывов -->
+
+
+								<!--{  {star_form}  } добавляет еще один запрос к БД к movie_movie -->
+<!--форма добавления коментов-->
+							</div>
+
+						</div>
+					</div>
+					<div class="sect frels">
+
+					</div>
+					<script type="application/ld+json">
+
+    </script>
+
+				</article>
+			</div>
+		</div>
+	</main>
+</div>
+	<script>
+		document.querySelector('#contactcomment').addEventListener('input', function (event) {
+    		document.querySelector('#contactcomment').textContent += event.target.value;
+  		});
+        function addReview(name, id, event) {
+        	event.preventDefault();
+            document.getElementById("contactparent").value = id;
+            document.querySelector('#contactcomment').value  = `${name}, `;
+<!--            document.getElementById("contactcomment").innerText = `${name}, `-->
+        }
+        function addSmiley(name) {
+            document.querySelector('#contactcomment').value  = document.querySelector('#contactcomment').value + `${name}`;
+        }
+    </script>
+{% endblock content %}

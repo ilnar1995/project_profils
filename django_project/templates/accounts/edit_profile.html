@@ -1,0 +1,54 @@
+{% extends 'accounts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="content">
+	<main class="main">
+<div class="speedbar nowrap">
+<span id="dle-speedbar"><span itemscope="" itemtype="https://schema.org/BreadcrumbList"><span itemprop="itemListElement" itemscope="" itemtype="https://schema.org/ListItem"><meta itemprop="position" content="1"><a href="https://lord2.lordfilm.lu/" itemprop="item"><span itemprop="name">LORDFILM</span></a></span> » Редактриование профиля</span></span>
+</div>
+<div class="clearfix" id="in-full"><div id="dle-content">
+	<form method="post" action="{% url 'edit' form.instance.id %}" enctype="multipart/form-data">
+		{% csrf_token %}
+    	<div class="form-error">{{ form.non_field_errors }}</div>
+		<div class="form-wrap">
+		<h1>Регистрация</h1>
+		<div class="full-text">
+		<b>Здравствуйте, уважаемый посетитель нашего сайта!</b><br>
+		Введите данные чтобы обновить данные профиля.
+		<br>В случае возникновения проблем обратитесь к администратору сайта.
+		</div>
+		<div class="form-item clearfix imp">
+		<label for="first_name">Имя:</label>
+		<input type="text" name="first_name" id="first_name" required="" value="{{ form.instance.first_name }}">
+			<div class="form-error">{{ form.first_name.errors }}</div>
+		</div>
+		<div id="result-registration"></div>
+		<div class="form-item clearfix imp">
+		<label for="last_name">Фамилия:</label>
+		<input type="text" name="last_name" id="last_name" value="{{ form.instance.last_name }}">
+			<div class="form-error">{{ form.last_name.errors }}</div>
+		</div>
+		<div class="form-item clearfix imp">
+		<label for="birthday">День рождения:</label>
+		<input type="date" name="birthday" id="birthday" value="{{ form.instance.birthday }}">
+			<div class="form-error">{{ form.birthday.errors }}</div>
+		</div>
+		<div class="form-item clearfix imp">
+		<label for="email">Фото:</label>
+		<input type="file" name="avatar" accept="image/*" id="id_avatar" >
+			<div class="form-error">{{ form.avatar.errors }}</div>
+		</div>
+		<div class="form-submit">
+		<button name="submit" type="submit">Отправить</button>
+		</div>
+		</div>
+		<input name="submit_reg" type="hidden" id="submit_reg" value="submit_reg">
+		<input name="do" type="hidden" id="do" value="register">
+	</form>
+
+</div></div>
+</main>
+</div>
+
+{% endblock content %}

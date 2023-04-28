@@ -7,7 +7,7 @@ from accounts import models
 class UserAdmin(admin.ModelAdmin):
     list_display = ('pkid', 'email', 'first_name', 'last_name', 'phone', 'last_login',
                     'is_active', 'is_staff', 'is_superuser', 'is_verified', 'code',)
-    fields = ('first_name', 'last_name', 'phone', 'birthday', 'is_active')
+    fields = ('first_name', 'last_name', 'phone', 'birthday', 'is_active', 'avatar')
     list_display_links = ('email',)
     readonly_fields = ('last_login', 'email', )
     search_fields = ('email', 'first_name', 'last_name',)

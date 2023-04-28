@@ -16,13 +16,13 @@
 		<div class="full-text">
 		<b>Здравствуйте, уважаемый посетитель нашего сайта!</b><br>
 		Регистрация на нашем сайте позволит Вам быть его полноценным участником.
-		Вы сможете добавлять новости на сайт, оставлять свои комментарии, просматривать скрытый текст и многое другое.
-		<br>В случае возникновения проблем с регистрацией, обратитесь к <a href="{% url 'home' %}">администратору</a> сайта.
+		Вы сможете редктрировать свой профиль и многое другое.
+		<br>В случае возникновения проблем с регистрацией, обратитесь к администратору сайта.
 		</div>
 		<div class="form-item clearfix imp">
-		<label for="name">Логин:</label>
-		<input type="text" name="username" id="name" required="">
-			<div class="form-error">{{ form.username.errors }}</div>
+		<label for="first_name">Имя:</label>
+		<input type="text" name="first_name" id="first_name" required="">
+			<div class="form-error">{{ form.first_name.errors }}</div>
 		</div>
 		<div id="result-registration"></div>
 		<div class="form-item clearfix imp">
