@@ -15,6 +15,7 @@ from django.views.generic import TemplateView, ListView, DetailView, CreateView,
 from .forms import RegisterUserForm, LoginUserForm, UserPasswordResetForm, RegisterUserCodeForm, EditUserProfileForm, \
     ResetEmailForm
 from .models import User
+from .utils1 import add_first_users
 from django.db import models
 from django.contrib.auth import get_user_model
 import random
@@ -114,12 +115,16 @@ class AccountDetailView(DetailView):
 
 
 class UsersListView(ListView):
-    model = User
-    queryset = User.objects.all()
+    model = get_user_model()
+    queryset = get_user_model().objects.all()
     template_name = 'accounts/account_list.html'
     context_object_name = 'users'
 
     def get_queryset(self):
+        # Чтоб при первом запуске докер контейнера список пользователей был не пустым, при попадании на главную страницу вручную добавляем пользователей
+        if not get_user_model().objects.all():
+            add_first_users()
+
         return get_user_model().objects.filter(is_verified=True)
 
     def get_context_data(self, **kwargs):  # функция для формирования и динамического и статического контекста
