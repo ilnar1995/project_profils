@@ -8,13 +8,29 @@ from django.core.mail import send_mail
 
 from .utils import get_upload_path
 from django.utils.crypto import get_random_string
-
+from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile, File
 from django.core.validators import MinValueValidator, MaxValueValidator
 from django.db import models
 
 from django.urls import reverse
 
+class ResizeImageMixin:
+    @staticmethod
+    def resize(imagefield: models.ImageField, size: tuple):
+        im = Image.open(imagefield)  # Catch original
+        source_image = im.convert('RGB')
+        source_image.thumbnail(size)  # Resize to size
+        output = BytesIO()
+        source_image.save(output, format='JPEG')  # Save resize image to bytes
+        output.seek(0)
+        # Read output and create ContentFile in memory
+        content_file = ContentFile(output.read())
+        file = File(content_file)
 
+        random_name = f'{uuid.uuid4()}.jpeg'
+        imagefield.save(random_name, file, save=False)
 
 
 class UserManager(BaseUserManager):
@@ -54,7 +70,7 @@ class UserManager(BaseUserManager):
 
 
 # Create your models here.
-class User(AbstractBaseUser):
+class User(AbstractBaseUser, ResizeImageMixin):
     USER_LANGUAGE = (
         ('ru', _('Russian')),
         ('eng', _('English')),
