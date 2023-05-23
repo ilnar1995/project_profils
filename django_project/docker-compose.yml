@@ -7,17 +7,18 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data/
     ports:
-      - 5432
+      - 5435:5432
     environment:
       POSTGRES_PASSWORD: 123456
       POSTGRES_USER: postgres
       POSTGRES_DB: postgres
   web:
-    build: .
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
     container_name: django
-    command:  bash -c "python /usr/src/django_project/manage.py makemigrations &&
-              python /usr/src/django_project/manage.py migrate --noinput &&
-              python /usr/src/django_project/manage.py runserver 0.0.0.0:8000"
+    command:  bash -c "python /usr/src/django_project/manage.py runserver 0.0.0.0:8000"
+    entrypoint: /usr/src/django_project/docker/entrypoint.sh
     volumes:
       - .:/usr/src/django_project
     env_file:
@@ -31,7 +32,10 @@ services:
     ports:
       - "6379:6379"
   celery:
-    build: .
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    entrypoint: /usr/src/django_project/docker/entrypoint-celery.sh
     command: celery -A django_project worker -l info
     volumes:
       - .:/code
